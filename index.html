@@ -18,7 +18,7 @@
     --tint: #fbe9ec;
     --nightmare: #C41230;
     --pretender: #252827;
-    --runaround: #8c8f8e;
+    --runaround: #6b6f6e;
     --radius: 8px;
   }
   * { box-sizing: border-box; }
@@ -165,7 +165,7 @@
     </div>
     <div class="panel">
       <p><strong>Part 1</strong> asks what drives you craziest in a leader. You pick 5 behaviors and rank them.</p>
-      <p><strong>Part 2</strong> asks how often you do some of the same things yourself, on stressed-out days.</p>
+      <p><strong>Part 2</strong> asks how often you do a bit of the same things yourself. Almost everyone does, now and then. That is the point.</p>
       <p>At the end you will see the two side by side. We will pause between the parts, so please keep this tab open.</p>
       <p class="muted">Your answers stay on your own device. Nothing is sent or collected. This is a reflection tool, not a validated assessment.</p>
       <div class="row">
@@ -230,7 +230,7 @@
   <section id="s-p2" class="hidden">
     <h2>Part 2: Hints of it in me</h2>
     <p>Be honest. Nobody sees these answers but you.</p>
-    <p>Think about the <strong>past month</strong>, especially your most stressed-out days. How often have you done each of these?</p>
+    <p>Most of us do a little of each of these, especially when we are stressed. Think about the <strong>past month</strong>. How often have you, even a little?</p>
     <div class="progress"><div id="p2-prog"></div></div>
     <div id="p2-list"></div>
     <p class="muted" id="p2-msg"></p>
@@ -240,6 +240,7 @@
   <!-- RESULTS -->
   <section id="s-res" class="hidden">
     <h1>Your stress signature</h1>
+    <p>Everyone has a tad of each monster. This shows where yours leans.</p>
     <p class="muted" id="res-sub"></p>
     <div id="res-summary"></div>
     <div id="res-monsters"></div>
@@ -274,26 +275,26 @@
   };
 
   var ITEMS = [
-    { id: "N1", t: "N", third: "Corrects people in front of others instead of privately", first: "I've corrected someone in front of others instead of privately." },
-    { id: "N2", t: "N", third: "Takes credit for other people's ideas", first: "I've presented someone else's idea without clearly crediting them." },
-    { id: "N3", t: "N", third: "Snaps, sighs, or goes cold when given bad news", first: "I've snapped, sighed, or gone cold when someone brought me bad news." },
-    { id: "N4", t: "N", third: "Makes decisions without asking, then expects everyone to go along", first: "I've made a decision without asking the people it affects, then expected them to run with it." },
-    { id: "N5", t: "N", third: "Only gives feedback when something goes wrong", first: "I've gone a whole week giving feedback only when something went wrong." },
-    { id: "P1", t: "P", third: "Says one thing to your face and something different behind closed doors", first: "I've said one thing to someone's face and something different when they weren't there." },
-    { id: "P2", t: "P", third: "Plays favorites", first: "I've given the best assignments and the benefit of the doubt to the people I like most." },
-    { id: "P3", t: "P", third: "Quietly hands you their own work", first: "I've passed my own tasks to someone else without saying that's what I was doing." },
-    { id: "P4", t: "P", third: "Can't keep a confidence", first: "I've shared something told to me in confidence because it seemed relevant." },
-    { id: "P5", t: "P", third: "Blames other people or circumstances and never owns their part", first: "When something went wrong, I blamed other people or the situation instead of owning my part." },
-    { id: "R1", t: "R", third: "Changes the goal or deadline after you agreed on a different one", first: "I've changed a goal or deadline after we agreed on a different one." },
-    { id: "R2", t: "R", third: "Gives vague directions, then expects you to know what they meant", first: "I've given directions that were clear to me and vague to everyone else." },
-    { id: "R3", t: "R", third: "Demands the impossible, then says \"figure it out\"", first: "I've asked for more than the time or resources allowed and said \"figure it out.\"" },
-    { id: "R4", t: "R", third: "Dumps a problem on the team and disappears", first: "I've handed off a problem and left before anyone could ask questions." },
-    { id: "R5", t: "R", third: "Commits the team to goals without asking them", first: "I've committed the team to a goal without asking them first." }
+    { id: "N1", t: "N", third: "Corrects people in front of others instead of privately", first: "I've corrected someone in front of others when it could have waited for a private chat." },
+    { id: "N2", t: "N", third: "Takes credit for other people's ideas", first: "I've let people assume an idea was mine, or forgotten to say whose it was." },
+    { id: "N3", t: "N", third: "Snaps, sighs, or goes cold when given bad news", first: "I've been short, or a bit cold, with someone who brought me bad news." },
+    { id: "N4", t: "N", third: "Makes decisions without asking, then expects everyone to go along", first: "I've made a call without checking with the people it affects, because it was faster." },
+    { id: "N5", t: "N", third: "Only gives feedback when something goes wrong", first: "I've noticed what went wrong more quickly than I've noticed what went right." },
+    { id: "P1", t: "P", third: "Says one thing to your face and something different behind closed doors", first: "I've said something about a person that I would not have said to their face." },
+    { id: "P2", t: "P", third: "Plays favorites", first: "I've given more of my time and trust to the people I like most, or know best." },
+    { id: "P3", t: "P", third: "Quietly hands you their own work", first: "I've passed along work I should have done myself, or let someone pick up my slack." },
+    { id: "P4", t: "P", third: "Can't keep a confidence", first: "I've passed along something told to me privately, thinking it was harmless." },
+    { id: "P5", t: "P", third: "Blames other people or circumstances and never owns their part", first: "When something went wrong, my first instinct was to explain why it was not my fault." },
+    { id: "R1", t: "R", third: "Changes the goal or deadline after you agreed on a different one", first: "I've changed a deadline or goal after we had settled on it." },
+    { id: "R2", t: "R", third: "Gives vague directions, then expects you to know what they meant", first: "I've given directions that made sense to me and left people guessing." },
+    { id: "R3", t: "R", third: "Demands the impossible, then says \"figure it out\"", first: "I've asked for more than the time allowed, hoping people would find a way." },
+    { id: "R4", t: "R", third: "Dumps a problem on the team and disappears", first: "I've handed something off, then been hard to reach when questions came up." },
+    { id: "R5", t: "R", third: "Commits the team to goals without asking them", first: "I've said yes to something for my team before asking them." }
   ];
   var BY_ID = {};
   ITEMS.forEach(function (it) { BY_ID[it.id] = it; });
 
-  var FREQ = ["Never", "Once or twice", "Sometimes", "Often"];
+  var FREQ = ["Not that I know of", "Once or twice", "Sometimes", "Often"];
   var KEY = "toxicLeadershipSurvey.v2";
 
   // ---------- state + storage (storage can fail; the page still works without it)
@@ -562,7 +563,7 @@
     var tHint = topKeys(hint);
     var summary = "";
     if (tHint.max === 0) {
-      summary = "<p><strong>You answered \"Never\" to everything.</strong> Great if true. Worth asking someone who works with you whether they would agree.</p>";
+      summary = "<p><strong>You answered \"Not that I know of\" to everything.</strong> That may be true. Blind spots are the ones we do not know about, so it is worth asking someone who works with you.</p>";
     } else if (hasP1) {
       var tAnnoy = topKeys(annoy);
       var overlap = tAnnoy.keys.some(function (k) { return tHint.keys.indexOf(k) >= 0; });
@@ -593,12 +594,12 @@
     });
     $("res-monsters").innerHTML = out;
 
-    var common = ITEMS.filter(function (it) { return (state.answers[it.id] || 0) >= 2; })
+    var common = ITEMS.filter(function (it) { return (state.answers[it.id] || 0) >= 1; })
       .sort(function (a, b) { return (state.answers[b.id] || 0) - (state.answers[a.id] || 0); })
       .slice(0, 3);
     var hints = "";
     if (common.length) {
-      hints = '<div class="panel"><h3>Your most common stress moments</h3><ul class="clean">';
+      hints = '<div class="panel"><h3>Where a tad of it shows up</h3><ul class="clean">';
       common.forEach(function (it) {
         hints += "<li>" + it.first + " <span class=\"muted\">(" + FREQ[state.answers[it.id]].toLowerCase() + ")</span></li>";
       });
