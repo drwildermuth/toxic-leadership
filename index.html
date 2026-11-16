@@ -150,6 +150,7 @@
   .hero h1 { color: #fff; margin: 0 0 6px; }
   .hero p { margin: 0; opacity: .92; }
   .band { background: var(--brand); color: #fff; font-weight: 700; padding: 14px 16px; margin: 36px -16px -80px; font-size: .9rem; }
+  .stressband { position: sticky; top: 0; z-index: 5; background: var(--brand); color: #fff; font-weight: 700; padding: 10px 14px; border-radius: 6px; margin: 8px 0 10px; }
   .hidden { display: none !important; }
   footer { font-size: .82rem; color: var(--muted); margin-top: 24px; }
 </style>
@@ -165,7 +166,7 @@
     </div>
     <div class="panel">
       <p><strong>Part 1</strong> asks what drives you craziest in a leader. You pick 5 behaviors and rank them.</p>
-      <p><strong>Part 2</strong> asks how often you do a bit of the same things yourself. Almost everyone does, now and then. That is the point.</p>
+      <p><strong>Part 2</strong> asks which little monster shows up in <em>you</em> when you are stressed. Almost everyone has a hint of one. That is the point.</p>
       <p>At the end you will see the two side by side. We will pause between the parts, so please keep this tab open.</p>
       <p class="muted">Your answers stay on your own device. Nothing is sent or collected. This is a reflection tool, not a validated assessment.</p>
       <div class="row">
@@ -228,9 +229,10 @@
 
   <!-- PART 2 -->
   <section id="s-p2" class="hidden">
-    <h2>Part 2: Hints of it in me</h2>
+    <h2>Part 2: Which little monster shows up when you're stressed?</h2>
     <p>Be honest. Nobody sees these answers but you.</p>
-    <p>Most of us do a little of each of these, especially when we are stressed. Think about the <strong>past month</strong>. How often have you, even a little?</p>
+    <p>Picture your most <strong>stressed-out days</strong> this past month, when the pressure was on. Most of us show a little of each of these then. How often have you, even a little?</p>
+    <div class="stressband">Thinking about my most stressed-out days&hellip;</div>
     <div class="progress"><div id="p2-prog"></div></div>
     <div id="p2-list"></div>
     <p class="muted" id="p2-msg"></p>
@@ -558,7 +560,7 @@
 
     $("res-sub").textContent = hasP1
       ? "What bothers you in others, next to what shows up in you."
-      : "What shows up in you on stressed-out days.";
+      : "The little monster that shows up when you are stressed.";
 
     var tHint = topKeys(hint);
     var summary = "";
@@ -567,14 +569,14 @@
     } else if (hasP1) {
       var tAnnoy = topKeys(annoy);
       var overlap = tAnnoy.keys.some(function (k) { return tHint.keys.indexOf(k) >= 0; });
-      summary += "<p><strong>What drives you craziest:</strong> " + names(tAnnoy.keys) + ".<br><strong>What shows up most in you:</strong> " + names(tHint.keys) + ".</p>";
+      summary += "<p><strong>What drives you craziest:</strong> " + names(tAnnoy.keys) + ".<br><strong>The little monster that shows up when you are stressed:</strong> " + names(tHint.keys) + ".</p>";
       if (overlap) {
-        summary += "<p>The monster that bugs you most is also one that shows up in you. We tend to notice most in others what we know best in ourselves. Worth sitting with.</p>";
+        summary += "<p>The monster that bugs you most is also one that shows up in you when you are stressed. We tend to notice most in others what we know best in ourselves. Worth sitting with.</p>";
       } else {
         summary += "<p>These are different monsters. Which one are you least likely to notice in yourself?</p>";
       }
     } else {
-      summary = "<p><strong>What shows up most in you:</strong> " + names(tHint.keys) + ".</p>";
+      summary = "<p><strong>The little monster that shows up when you are stressed:</strong> " + names(tHint.keys) + ".</p>";
     }
     $("res-summary").innerHTML = '<div class="callout">' + summary + "</div>";
 
@@ -588,7 +590,7 @@
         out += '<div class="barrow"><div class="barlabel"><span>Drives me crazy</span><span>' + annoy[k] + " of 15</span></div>" +
                '<div class="bar"><div style="width:' + (annoy[k] / 15 * 100) + '%"></div></div></div>';
       }
-      out += '<div class="barrow"><div class="barlabel"><span>Shows up in me</span><span>' + hint[k] + " of 15</span></div>" +
+      out += '<div class="barrow"><div class="barlabel"><span>Shows up when I&rsquo;m stressed</span><span>' + hint[k] + " of 15</span></div>" +
              '<div class="bar hint"><div style="width:' + (hint[k] / 15 * 100) + '%"></div></div></div>';
       out += "</div>";
     });
